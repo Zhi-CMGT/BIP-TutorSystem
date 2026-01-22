@@ -4,8 +4,8 @@
 
 @section('content')
     <div class="max-w-2xl mx-auto">
-        <div class="bg-white rounded-lg shadow p-6">
-            <h2 class="text-xl font-semibold mb-4 flex items-center">
+        <div class="bg-box rounded-lg shadow p-6">
+            <h2 class="text-xl text-textMain font-semibold mb-4 flex items-center">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                           d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
@@ -88,15 +88,15 @@
                 </div>
 
                 <button type="submit"
-                        class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                        class="w-full bg-accentText text-box py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
                     Submit Application
                 </button>
             </form>
         </div>
 
         <div class="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <h3 class="font-semibold text-blue-900 mb-2">Why Become a Tutor?</h3>
-            <ul class="text-sm text-blue-800 space-y-1">
+            <h3 class="font-semibold text-box mb-2">Why Become a Tutor?</h3>
+            <ul class="text-sm text-box space-y-1">
                 <li>• Free for students - government funded</li>
                 <li>• Earn hourly compensation from the government</li>
                 <li>• Perfect part-time opportunity</li>

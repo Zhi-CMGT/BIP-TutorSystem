@@ -74,4 +74,43 @@ class TutorController extends Controller
         return redirect()->route('tutors.find')
             ->with('success', "Your request for {$tutor->name} has been submitted! We'll match you shortly.");
     }
+
+    public function profile()
+    {
+        // Dummy data for the profile page
+        $user = [
+            'name' => 'Alex Johnson',
+            'initials' => 'AJ',
+            'email' => 'alex.johnson@student.cmgt.nl',
+            'role' => 'Student',
+            'joined_date' => 'September 2023',
+        ];
+
+        $stats = [
+            'total_sessions' => 12,
+            'hours_learned' => 18,
+            'upcoming_sessions' => 2,
+        ];
+
+        $upcoming_sessions = [
+            [
+                'subject' => 'Mathematics',
+                'tutor' => 'Sarah Smith',
+                'date' => 'Oct 24, 2023',
+                'time' => '14:00 - 15:30',
+            ],
+            [
+                'subject' => 'Physics',
+                'tutor' => 'Mike Brown',
+                'date' => 'Oct 26, 2023',
+                'time' => '10:00 - 11:30',
+            ],
+        ];
+
+        return view('profile', [
+            'user' => $user,
+            'stats' => $stats,
+            'upcoming_sessions' => $upcoming_sessions,
+        ]);
+    }
 }

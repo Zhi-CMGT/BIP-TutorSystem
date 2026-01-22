@@ -3,126 +3,80 @@
 @section('title', 'Find a Tutor')
 
 @section('content')
-    <div class="max-w-6xl mx-auto">
-        <!-- Filters -->
-        <div class="bg-white rounded-lg shadow p-6 mb-6">
-            <h2 class="text-xl font-semibold mb-4 flex items-center">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        <form method="GET" action="{{ route('tutors.find') }}" class="flex gap-2 mb-8">
+            <div class="relative flex-grow">
+                <select name="subject_id"
+                        onchange="this.form.submit()"
+                        class="w-full bg-box text-textMain border-none rounded-md py-3 px-4 appearance-none focus:ring-1 focus:ring-accent cursor-pointer">
+                    <option value="">All Subjects</option>
+                    @foreach($subjects as $subject)
+                        <option value="{{ $subject->id }}" {{ $selectedSubject == $subject->id ? 'selected' : '' }}>
+                            {{ $subject->name }}
+                        </option>
+                    @endforeach
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-textMain">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                        <path
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                    </svg>
+                </div>
+            </div>
+            <button type="submit" class="bg-box p-3 rounded-md hover:opacity-80 transition-opacity">
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                           d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
-                Find Your Free Tutor
-            </h2>
+            </button>
+        </form>
 
-            <div class="bg-green-50 border border-green-200 rounded-lg p-3 mb-4">
-                <p class="text-sm text-green-900">
-                    <strong>100% Free:</strong> All tutoring sessions are provided at no cost through government
-                    funding.
-                </p>
-            </div>
-
-            <form method="GET" action="{{ route('tutors.find') }}" class="grid md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
-                    <select name="subject_id"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <option value="">All Subjects</option>
-                        @foreach($subjects as $subject)
-                            <option value="{{ $subject->id }}" {{ $selectedSubject == $subject->id ? 'selected' : '' }}>
-                                {{ $subject->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Level</label>
-                    <select name="level_id"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <option value="">All Levels</option>
-                        @foreach($levels as $level)
-                            <option value="{{ $level->id }}" {{ $selectedLevel == $level->id ? 'selected' : '' }}>
-                                {{ $level->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="md:col-span-2">
-                    <button type="submit"
-                            class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-                        Search Tutors
-                    </button>
-                </div>
-            </form>
+        <div class="bg-box/50 rounded-lg p-4 mb-8 text-center border border-white/5">
+            <p class="text-textMain text-sm">
+                <span class="text-accent font-bold">100% Free:</span>
+                All tutoring sessions are provided at no cost through government funding.
+            </p>
         </div>
 
-        <!-- Tutors List -->
-        <div class="mb-4">
-            <h3 class="text-sm font-medium text-gray-500">{{ $tutors->count() }} tutors available</h3>
-        </div>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="bg-box/40 rounded-xl overflow-hidden shadow-2xl border border-white/5">
             @forelse($tutors as $tutor)
-                <div class="bg-white rounded-lg shadow p-6">
-                    <div class="flex items-start justify-between mb-3">
-                        <div class="flex items-center">
+                <form id="request-form-{{ $tutor->id }}" method="POST" action="{{ route('tutors.request', $tutor) }}">
+                    @csrf
+                    <div onclick="document.getElementById('request-form-{{ $tutor->id }}').submit();"
+                         class="flex items-center justify-between p-6 {{ !$loop->last ? 'border-b border-white/10' : '' }} hover:bg-box/60 transition-colors cursor-pointer group">
+
+                        <div class="flex items-center space-x-5">
                             <div
-                                class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
-                                {{ $tutor->initials }}
-                            </div>
-                            <div class="ml-3">
-                                <h3 class="font-semibold text-gray-900">{{ $tutor->name }}</h3>
-                                <p class="text-sm text-gray-600">{{ $tutor->subject->name }}</p>
-                            </div>
-                        </div>
-                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded">
-                        {{ $tutor->level->name }}
-                    </span>
-                    </div>
-
-                    <p class="text-sm text-gray-600 mb-3">{{ Str::limit($tutor->bio, 100) }}</p>
-
-                    <div class="flex items-center justify-between text-sm mb-3">
-                        <div class="flex items-center space-x-3">
-                            <div class="flex items-center text-yellow-500">
-                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                                </svg>
-                                <span class="ml-1 font-semibold">{{ $tutor->rating }}</span>
-                                <span class="text-gray-500 ml-1">({{ $tutor->reviews_count }})</span>
-                            </div>
-                            <div class="flex items-center text-gray-600">
-                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                class="w-12 h-12 rounded-full border-2 border-accent flex items-center justify-center group-hover:bg-accent/10 transition-colors">
+                                <svg class="w-7 h-7 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                 </svg>
-                                <span>{{ $tutor->hours_this_week }}h this week</span>
+                            </div>
+
+                            <div>
+                                <h3 class="text-textMain font-bold text-lg leading-tight">{{ $tutor->name }}</h3>
+                                <p class="text-accentText/70 text-sm italic">{{ $tutor->subject->name }}</p>
                             </div>
                         </div>
-                        <div class="bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded">
-                            Free
+
+                        <div>
+                        <span
+                            class="bg-bgMain/50 text-accentText text-xs font-semibold px-4 py-1.5 rounded uppercase tracking-wider group-hover:bg-bgMain transition-colors">
+                            {{ $tutor->level->name }}
+                        </span>
                         </div>
                     </div>
-
-                    <form method="POST" action="{{ route('tutors.request', $tutor) }}">
-                        @csrf
-                        <button type="submit"
-                                class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center">
-                            Request Tutor
-                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </button>
-                    </form>
-                </div>
+                </form>
             @empty
-                <div class="md:col-span-2 lg:col-span-3 text-center py-12">
-                    <p class="text-gray-500">No tutors found matching your criteria. Try adjusting your filters.</p>
+                <div class="text-center py-12 text-accentText">
+                    <p>No tutors found matching your criteria.</p>
                 </div>
             @endforelse
+        </div>
+
+        <div class="mt-6 text-center">
+            <p class="text-accentText/60 text-sm">{{ $tutors->count() }} tutors available</p>
         </div>
     </div>
 @endsection
