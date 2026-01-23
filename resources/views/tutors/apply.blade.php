@@ -24,21 +24,21 @@
                 @csrf
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+                    <label class="block text-sm font-medium text-accentText mb-2">Full Name *</label>
                     <input type="text" name="name" value="{{ old('name') }}" required
                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                            placeholder="Enter your full name">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+                    <label class="block text-sm font-medium text-accentText mb-2">Email Address *</label>
                     <input type="email" name="email" value="{{ old('email') }}" required
                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                            placeholder="your.email@example.com">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Subject You Can Teach *</label>
+                    <label class="block text-sm font-medium text-accentText mb-2">Subject You Can Teach *</label>
                     <select name="subject_id" required
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                         <option value="">Select a subject</option>
@@ -52,7 +52,7 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Teaching Level *</label>
+                    <label class="block text-sm font-medium text-accentText mb-2">Teaching Level *</label>
                     <select name="level_id" required
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                         <option value="">Select your level</option>
@@ -65,23 +65,23 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Years of Experience *</label>
+                    <label class="block text-sm font-medium text-accentText mb-2">Years of Experience *</label>
                     <input type="number" name="experience_years" value="{{ old('experience_years') }}" required min="0"
                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                            placeholder="e.g., 5">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Hours Available Per Week *</label>
+                    <label class="block text-sm font-medium text-accentText mb-2">Hours Available Per Week *</label>
                     <input type="number" name="hours_available" value="{{ old('hours_available') }}" required min="1"
                            max="40"
                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                            placeholder="e.g., 10">
-                    <p class="text-xs text-gray-500 mt-1">Part-time positions: 5-20 hours/week recommended</p>
+                    <p class="text-xs text-accentText mt-1">Part-time positions: 5-20 hours/week recommended</p>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Bio / Teaching Philosophy *</label>
+                    <label class="block text-sm font-medium text-accentText mb-2">Bio / Teaching Philosophy *</label>
                     <textarea name="bio" rows="4" required
                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                               placeholder="Tell us about your teaching experience and philosophy...">{{ old('bio') }}</textarea>

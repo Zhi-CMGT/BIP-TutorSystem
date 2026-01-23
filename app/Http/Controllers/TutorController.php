@@ -63,10 +63,11 @@ class TutorController extends Controller
             'bio' => 'required|string|min:50',
         ]);
 
+        $validated['status'] = 'approved';
         Tutor::create($validated);
 
         return redirect()->route('tutors.apply')
-            ->with('success', 'Application submitted successfully! We will review your profile and get back to you within 2-3 business days.');
+            ->with('success', 'Application submitted successfully! Your profile is now live and visible to students.');
     }
 
     public function request(Tutor $tutor)
